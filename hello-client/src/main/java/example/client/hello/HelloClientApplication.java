@@ -41,6 +41,7 @@ public class HelloClientApplication {
 
             // Sending request to the hello-service
             String message = helloServiceRequester.route(params.method)
+                    .data(params.name)
                     .retrieveMono(String.class)
                     .block();
 

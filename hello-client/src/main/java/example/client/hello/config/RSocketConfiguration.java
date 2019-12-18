@@ -10,10 +10,10 @@ import org.springframework.util.MimeTypeUtils;
 @Configuration
 public class RSocketConfiguration {
 
-    @Value("${example.service.hello.hostname")
+    @Value("${example.service.hello.hostname}")
     private String helloServiceHostname;
 
-    @Value("${example.service.hello.port")
+    @Value("${example.service.hello.port}")
     private int helloServicePort;
 
     @Bean
