@@ -44,13 +44,13 @@ public class HelloClientApplication {
         /**
          * Basic auth username
          */
-        @Option(names = "username", description = "basic auth username")
+        @Option(names = "--username", description = "basic auth username")
         public String username;
 
         /**
          * Basic auth password
          */
-        @Option(names = "password", defaultValue = "basic auth password")
+        @Option(names = "--password", defaultValue = "basic auth password")
         public String password;
 
         /**
