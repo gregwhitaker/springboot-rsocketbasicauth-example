@@ -7,7 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.messaging.rsocket.RSocketRequester;
+import org.springframework.security.rsocket.metadata.UsernamePasswordMetadata;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MimeType;
+import org.springframework.util.StringUtils;
 
 import static picocli.CommandLine.Option;
 import static picocli.CommandLine.Parameters;
@@ -39,16 +42,34 @@ public class HelloClientApplication {
             LOG.debug("method: {}", params.method);
             LOG.debug("name: {}", params.name);
 
-            // Sending request to the hello-service
-            String message = helloServiceRequester.route(params.method)
-                    .data(params.name)
-                    .retrieveMono(String.class)
-                    .doOnError(throwable -> {
-                        LOG.error(throwable.getMessage(), throwable);
-                    })
-                    .block();
+            if (!StringUtils.isEmpty(params.username) || !StringUtils.isEmpty(params.password)) {
+                LOG.info("Sending message with Basic Auth metadata...");
 
-            LOG.info("Response: {}", message);
+                // Sending request to the hello-service
+                String message = helloServiceRequester.route(params.method)
+                        .metadata(new UsernamePasswordMetadata(params.username, params.password), UsernamePasswordMetadata.BASIC_AUTHENTICATION_MIME_TYPE)
+                        .data(params.name)
+                        .retrieveMono(String.class)
+                        .doOnError(throwable -> {
+                            LOG.error(throwable.getMessage(), throwable);
+                        })
+                        .block();
+
+                LOG.info("Response: {}", message);
+            } else {
+                LOG.info("Sending message without Basic Auth metadata...");
+                
+                // Sending request to the hello-service
+                String message = helloServiceRequester.route(params.method)
+                        .data(params.name)
+                        .retrieveMono(String.class)
+                        .doOnError(throwable -> {
+                            LOG.error(throwable.getMessage(), throwable);
+                        })
+                        .block();
+
+                LOG.info("Response: {}", message);
+            }
         }
     }
 
