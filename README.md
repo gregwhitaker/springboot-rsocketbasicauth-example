@@ -37,6 +37,9 @@ Follow the steps below to run the example application:
         2019-12-18 11:07:12.171  INFO 3575 --- [           main] e.client.hello.HelloClientApplication    : Sending message with Basic Auth metadata...
         2019-12-18 11:07:12.284  INFO 3575 --- [           main] e.client.hello.HelloClientApplication    : Response: Hello, Bob, from secured method
 
+## Bugs and Feedback
+For bugs, questions, and discussions please use the [Github Issues](https://github.com/gregwhitaker/springboot-rsocketbasicauth-example/issues).
+
 ## License
 MIT License
 
