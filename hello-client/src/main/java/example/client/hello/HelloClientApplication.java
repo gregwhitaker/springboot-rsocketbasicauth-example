@@ -36,15 +36,27 @@ public class HelloClientApplication {
      */
     public static class ClientArguments {
 
+        /**
+         * Basic auth username
+         */
         @Option(names = "username")
         public String username;
 
+        /**
+         * Basic auth password
+         */
         @Option(names = "password")
         public String password;
 
+        /**
+         * RSocket method name
+         */
         @Parameters(index = "0")
         public String method;
 
+        /**
+         * "name" argument to send to the method
+         */
         @Parameters(index = "1")
         public String name;
     }
