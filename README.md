@@ -1,6 +1,18 @@
 # springboot-rsocketbasicauth-example
 An example of using Basic Auth with [RSocket](http://rsocket.io) and Spring Boot.
 
+## Building the Example
+Run the following command to build the example application:
+
+    ./gradlew clean build
+    
+## Running the Example
+Follow the steps below to run the example application:
+
+1. Run the following command to start the `hello-service`:
+
+        ./gradlew :hello-service:bootRun
+
 ## License
 MIT License
 
