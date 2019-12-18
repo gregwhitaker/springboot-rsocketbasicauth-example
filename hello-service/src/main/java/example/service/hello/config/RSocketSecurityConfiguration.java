@@ -29,6 +29,7 @@ public class RSocketSecurityConfiguration {
     public PayloadSocketAcceptorInterceptor rsocketInterceptor(RSocketSecurity rsocket) {
         rsocket.authorizePayload(authorize ->
                         authorize
+                                .route("hello").permitAll()     // Permit access to the "hello" route
                                 .anyRequest().authenticated()
                                 .anyExchange().permitAll()
                 )

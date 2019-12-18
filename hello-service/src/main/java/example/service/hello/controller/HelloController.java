@@ -12,7 +12,7 @@ public class HelloController {
         return Mono.just(String.format("Hello, %s, from unsecured method", name));
     }
 
-    @MessageMapping("helloSecure")
+    @MessageMapping("hello.secure")
     public Mono<String> helloSecure(String name) {
         return Mono.just(String.format("Hello, %s, from secured method", name));
     }
