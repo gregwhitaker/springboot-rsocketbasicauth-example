@@ -1,0 +1,4 @@
+rootProject.name = 'springboot-rsocketbasicauth-example'
+include 'hello-service'
+include 'hello-client'
+
