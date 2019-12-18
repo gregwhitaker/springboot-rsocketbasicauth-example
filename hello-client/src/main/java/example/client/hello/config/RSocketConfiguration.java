@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.messaging.rsocket.RSocketStrategies;
 import org.springframework.security.rsocket.metadata.BasicAuthenticationEncoder;
-import org.springframework.security.rsocket.metadata.UsernamePasswordMetadata;
 import org.springframework.util.MimeTypeUtils;
 
 @Configuration

@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.security.rsocket.metadata.UsernamePasswordMetadata;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MimeType;
 import org.springframework.util.StringUtils;
 
 import static picocli.CommandLine.Option;
