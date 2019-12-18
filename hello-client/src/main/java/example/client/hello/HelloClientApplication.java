@@ -28,6 +28,11 @@ public class HelloClientApplication {
         @Override
         public void run(String... args) throws Exception {
             ClientArguments params = populateCommand(new ClientArguments(), args);
+
+            LOG.debug("username: {}", params.username);
+            LOG.debug("password: {}", params.password);
+            LOG.debug("method: {}", params.method);
+            LOG.debug("name: {}", params.name);
         }
     }
 
@@ -39,25 +44,25 @@ public class HelloClientApplication {
         /**
          * Basic auth username
          */
-        @Option(names = "username")
+        @Option(names = "username", description = "basic auth username")
         public String username;
 
         /**
          * Basic auth password
          */
-        @Option(names = "password")
+        @Option(names = "password", defaultValue = "basic auth password")
         public String password;
 
         /**
          * RSocket method name
          */
-        @Parameters(index = "0")
+        @Parameters(index = "0", arity = "1", description = "the method to call")
         public String method;
 
         /**
          * "name" argument to send to the method
          */
-        @Parameters(index = "1")
+        @Parameters(index = "1", arity = "1", defaultValue = "name argument for method")
         public String name;
     }
 }
