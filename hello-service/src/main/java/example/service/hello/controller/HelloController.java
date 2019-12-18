@@ -9,11 +9,11 @@ public class HelloController {
 
     @MessageMapping("hello")
     public Mono<String> hello(String name) {
-        return Mono.just(String.format("Hello, %s, from unsecured method", name));
+        return Mono.just(String.format("Hello, %s! - from unsecured method", name));
     }
 
     @MessageMapping("hello.secure")
     public Mono<String> helloSecure(String name) {
-        return Mono.just(String.format("Hello, %s, from secured method", name));
+        return Mono.just(String.format("Hello, %s! - from secured method", name));
     }
 }

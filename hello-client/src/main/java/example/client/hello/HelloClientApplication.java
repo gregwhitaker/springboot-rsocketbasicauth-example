@@ -43,6 +43,9 @@ public class HelloClientApplication {
             String message = helloServiceRequester.route(params.method)
                     .data(params.name)
                     .retrieveMono(String.class)
+                    .doOnError(throwable -> {
+                        LOG.error(throwable.getMessage(), throwable);
+                    })
                     .block();
 
             LOG.info("Response: {}", message);
