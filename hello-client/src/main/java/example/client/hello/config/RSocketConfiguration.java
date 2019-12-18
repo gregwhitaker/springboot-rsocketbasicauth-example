@@ -1,5 +1,6 @@
 package example.client.hello.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,17 +18,20 @@ public class RSocketConfiguration {
     @Value("${example.service.hello.port}")
     private int helloServicePort;
 
-    @Bean
-    public RSocketStrategies rSocketStrategies() {
-        return RSocketStrategies.builder()
-                .encoder(new BasicAuthenticationEncoder())
-                .build();
+    @Bean("insecureRSocketRequester")
+    public RSocketRequester insecureRSocketRequester() {
+        return RSocketRequester.builder()
+                .dataMimeType(MimeTypeUtils.TEXT_PLAIN)
+                .connectTcp(helloServiceHostname, helloServicePort)
+                .block();
     }
 
-    @Bean
-    public RSocketRequester helloServiceRequester(RSocketStrategies rSocketStrategies) {
+    @Bean(name = "secureRSocketRequester")
+    public RSocketRequester helloServiceRequester() {
         return RSocketRequester.builder()
-                .rsocketStrategies(rSocketStrategies)
+                .rsocketStrategies(builder -> {
+                    builder.encoder(new BasicAuthenticationEncoder());
+                })
                 .dataMimeType(MimeTypeUtils.TEXT_PLAIN)
                 .connectTcp(helloServiceHostname, helloServicePort)
                 .block();

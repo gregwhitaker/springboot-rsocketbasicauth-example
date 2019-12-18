@@ -3,6 +3,7 @@ package example.client.hello;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,8 +30,13 @@ public class HelloClientApplication {
     @Component
     public class Runner implements CommandLineRunner {
 
+        @Qualifier("insecureRSocketRequester")
         @Autowired
-        private RSocketRequester helloServiceRequester;
+        private RSocketRequester insecureRSocketRequester;
+
+        @Qualifier("secureRSocketRequester")
+        @Autowired
+        private RSocketRequester secureRSocketRequester;
 
         @Override
         public void run(String... args) throws Exception {
@@ -45,7 +51,7 @@ public class HelloClientApplication {
                 LOG.info("Sending message with Basic Auth metadata...");
 
                 // Sending request to the hello-service
-                String message = helloServiceRequester.route(params.method)
+                String message = secureRSocketRequester.route(params.method)
                         .metadata(new UsernamePasswordMetadata(params.username, params.password), UsernamePasswordMetadata.BASIC_AUTHENTICATION_MIME_TYPE)
                         .data(params.name)
                         .retrieveMono(String.class)
@@ -59,7 +65,7 @@ public class HelloClientApplication {
                 LOG.info("Sending message without Basic Auth metadata...");
 
                 // Sending request to the hello-service
-                String message = helloServiceRequester.route(params.method)
+                String message = insecureRSocketRequester.route(params.method)
                         .data(params.name)
                         .retrieveMono(String.class)
                         .doOnError(throwable -> {
@@ -86,7 +92,7 @@ public class HelloClientApplication {
         /**
          * Basic auth password
          */
-        @Option(names = "--password", defaultValue = "basic auth password")
+        @Option(names = "--password", description = "basic auth password")
         public String password;
 
         /**

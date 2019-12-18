@@ -12,6 +12,30 @@ Follow the steps below to run the example application:
 1. Run the following command to start the `hello-service`:
 
         ./gradlew :hello-service:bootRun
+        
+2. In a new terminal, run the following command to send a request to the unsecured `hello` endpoint:
+
+        ./gradlew :hello-client:bootRun --args="hello Bob"
+        
+    If successful, you will see the following response:
+    
+        2019-12-18 11:02:55.038  INFO 3540 --- [           main] e.client.hello.HelloClientApplication    : Sending message without Basic Auth metadata...
+        2019-12-18 11:02:55.065  INFO 3540 --- [           main] e.client.hello.HelloClientApplication    : Response: Hello, Bob, from unsecured method
+        
+3. Next, run the following command to send a request to the secure `hello.secure` endpoint:
+
+        ./gradlew :hello-client:bootRun --args="hello.secure Bob"
+        
+    You will receive an `io.rsocket.exceptions.ApplicationErrorException: Access Denied` because you have not supplied valid credentials.
+   
+4. Next, run the following command to send a request to the secure `hello.secure` endpoint, but this time supplying valid credentials:
+
+        ./gradlew :hello-client:bootRun --args="--username=admin --password=password hello.secure Bob"
+        
+    If successful, you will see the following response:
+
+        2019-12-18 11:07:12.171  INFO 3575 --- [           main] e.client.hello.HelloClientApplication    : Sending message with Basic Auth metadata...
+        2019-12-18 11:07:12.284  INFO 3575 --- [           main] e.client.hello.HelloClientApplication    : Response: Hello, Bob, from secured method
 
 ## License
 MIT License
