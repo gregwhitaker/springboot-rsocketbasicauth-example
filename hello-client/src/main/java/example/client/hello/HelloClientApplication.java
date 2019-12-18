@@ -58,7 +58,7 @@ public class HelloClientApplication {
                 LOG.info("Response: {}", message);
             } else {
                 LOG.info("Sending message without Basic Auth metadata...");
-                
+
                 // Sending request to the hello-service
                 String message = helloServiceRequester.route(params.method)
                         .data(params.name)
