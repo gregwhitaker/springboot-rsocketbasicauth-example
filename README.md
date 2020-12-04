@@ -1,4 +1,6 @@
 # springboot-rsocketbasicauth-example
+![Build](https://github.com/gregwhitaker/springboot-rsocketbasicauth-example/workflows/Build/badge.svg)
+
 An example of using Basic Auth with [RSocket](http://rsocket.io) and Spring Boot.
 
 ## Building the Example
